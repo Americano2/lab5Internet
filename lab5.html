@@ -1,0 +1,78 @@
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.0/math.js" integrity="sha512-D/RyeW6S1nM+OJUBeS/w8U1CVwAaR3EMBRzaacbYkjMqgF+4rcvYR50LC+6egba1WHJSmf6Sua2Zj5V+Cg85lQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+.frac {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    letter-spacing: 0.001em;
+    text-align: center;
+}
+.frac > span {
+    display: block;
+    padding: 0.1em;
+}
+.frac span.bottom {
+    border-top: thin solid black;
+}
+.frac span.symbol {
+    display: none;
+} 
+</style>
+</head>
+<body>
+<form>
+<table>
+<tr>
+<td><label for="expInp">Приклад</label></td>
+<td><input type="text" id="expInp" style="margin:8px"></td>
+<td><input type="button" id="butInp" value="Розв'язати" onclick="cal(this.form)"></td>
+</tr>
+<tr>
+<td><label for="expInp">Результат</label></td>
+<td><input type="text" id="result" style="margin:8px" readonly></td>
+<tr>
+<tr>
+<td>k = 2.84 </td>
+<td> s = 3.26 </td>
+</tr>
+<tr>
+<td>u =  <div class="frac">
+    <span>sin<sup>2</sup>(k+4s-2)</span>
+    <span class="symbol">/</span>
+    <span class="bottom">k+
+	<math>
+  		<mroot>
+    		<mn>s</mn> <!-- Число під коренем -->
+		<mn></mn>
+  		</mroot>
+	</math>
+    </span>
+    </div> -1</td>
+<td><input type="text" id="resultU" style="margin:8px" value="" readonly></td>
+</tr>
+<tr>
+<td>w = 2k + <math>
+        <mo>|</mo>
+        <mn>3-s</mn>
+        <mo>|</mo>
+    </math> cos(k+1)
+</td>
+<td><input type="text" id="resultW" style="margin:8px" value="" readonly></td>
+</tr>
+<table>
+</form>
+<script>
+	function cal(form){
+		const parser = math.parser();
+		parser.set('k', 2.84)
+		parser.set('s', 3.26)
+
+		form.result.value = math.evaluate(form.expInp.value);
+		form.resultU.value = parser.evaluate("u = (pow(sin(k+4s-2), 2))/(k+sqrt(s))-1");
+		form.resultW.value = parser.evaluate("w = 2k + abs(3-s)cos(k+1)");
+	}
+</script>
+</body>
+</html>
